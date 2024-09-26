@@ -9,7 +9,8 @@ public class TimeConverted {
         int hours = Math.floorDiv(mins, 60);
         int remainingMins = mins % 60;
 
-        JOptionPane.showMessageDialog(null, hours + " hours and " + remainingMins + " minutes.");
+        JOptionPane.showMessageDialog(null, hours + " hours and " + remainingMins + " minutes.", "Result",
+                JOptionPane.INFORMATION_MESSAGE);
 
     }
 }

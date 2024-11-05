@@ -29,7 +29,7 @@ public class Crypto {
         }
         while (inputStream.hasNextLine()) {
             String word = inputStream.nextLine();
-            for(int i = 0; i < word.length(); i++) {
+            for (int i = 0; i < word.length(); i++) {
                 char c = word.charAt(i);
                 int ascii = (int) c;
                 int new_ascii = ascii + key;
@@ -37,7 +37,7 @@ public class Crypto {
                 outputStream.print(" ");
             }
             outputStream.println(); // move to next line (new line)
-            
+
         }
 
         inputStream.close();
@@ -45,31 +45,37 @@ public class Crypto {
     }
 
     // not working yet
-    // public void decrypt(String c_file, String p_file, int key) {
-    //     Scanner inputStream = null;
-    //     PrintWriter outputStream = null;
-    //     try {
-    //         inputStream = new Scanner(new FileInputStream(c_file));
-    //         outputStream = new PrintWriter(new FileOutputStream(p_file));
-    //     } catch (FileNotFoundException e) {
-    //         e.printStackTrace();
-    //     }
-    //     while (inputStream.hasNextLine()) {
-    //         String line = inputStream.nextLine();
-    //         Scanner lineScanner = new Scanner(line);
-            
-    //         while (lineScanner.hasNextInt()) {
-    //             int ascii = lineScanner.nextInt();
-    //             int new_ascii = ascii - key;
-    //             char c = (char) new_ascii;
-    //             outputStream.print(c);
-    //         }
-    //         outputStream.println();
-    //         lineScanner.close();
-    //     }
-    // }
+    public void decrypt() {
+        Scanner inputStream = null;
+        PrintWriter outputStream = null;
+        try {
+            inputStream = new Scanner(new FileInputStream(ciphertext_filename));
+            outputStream = new PrintWriter(new FileOutputStream("input2.txt"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        while (inputStream.hasNextLine()) {
+            String line = inputStream.nextLine();
+            Scanner lineScanner = new Scanner(line);
+
+            while (lineScanner.hasNextInt()) {
+                int ascii = lineScanner.nextInt();
+                int new_ascii = ascii - key;
+                char c = (char) new_ascii;
+                outputStream.print(c);
+            }
+            outputStream.println();
+            lineScanner.close();
+        }
+
+        inputStream.close();
+        outputStream.close();
+    }
+
     public static void main(String[] args) {
         Crypto c = new Crypto("input.txt", "output.txt", 3);
         c.encrypt();
+        c.decrypt();
     }
 }
